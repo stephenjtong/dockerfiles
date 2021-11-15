@@ -1,7 +1,8 @@
 FROM php:8.0.6-apache-buster
 RUN a2enmod ssl
 RUN a2enmod rewrite
-RUN apt-get update && apt-get install -y libldap-dev libzip-dev
+RUN apt-get update 
+RUN apt-get install -y libldap-dev libzip-dev
 RUN docker-php-ext-configure ldap
 RUN docker-php-ext-install -j$(nproc) ldap
 RUN docker-php-ext-configure pdo_mysql
@@ -25,3 +26,6 @@ RUN apt-get install -y libpng-dev
 RUN docker-php-ext-install -j$(nproc) gd
 RUN pecl install redis
 RUN docker-php-ext-enable redis
+RUN docker-php-ext-configure pdo_mysqli
+RUN docker-php-ext-configure mysqli
+RUN docker-php-ext-install -j$(nproc) mysqli
